@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Tracer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Device Dashboard</h1>
+    <table>
+        <tr>
+            <th>Device ID</th>
+            <th>Position</th>
+            <th>Tokens</th>
+            <th>Contacts</th>
+            <th>Actions</th>
+        </tr>
+        {% for device in devices %}
+        <tr>
+            <td><a href="/device/{{ device.device_id }}">{{ device.device_id[:8] }}</a></td>
+            <td>{{ device.position }}</td>
+            <td>{{ device.exposure_tokens|length }}</td>
+            <td>{{ device.contact_log|length }}</td>
+            <td>
+                <form method="POST" action="/diagnose/{{ device.device_id }}">
+                    <button type="submit">Diagnose</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/risk_check">Check Exposure for All</a>
+</body>
+</html>

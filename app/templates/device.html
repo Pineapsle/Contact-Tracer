@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Device {{ device.device_id[:8] }}</h1>
+    <h3>Tokens:</h3>
+    <ul>
+        {% for timestamp, token in device.exposure_tokens %}
+        <li>{{ timestamp }} — {{ token }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Contact Log:</h3>
+    <ul>
+        {% for time, token in device.contact_log %}
+        <li>{{ time }} — {{ token }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Exposure Result:</h3>
+    {% if device.exposed_to %}
+        <p>Potential Exposure:</p>
+        <ul>
+            {% for token in device.exposed_to %}
+            <li>{{ token }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No known exposure.</p>
+    {% endif %}
+    <a href="/">Back to Dashboard</a>
+</body>
+</html>

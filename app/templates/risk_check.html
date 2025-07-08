@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exposure Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Exposure Check Results</h1>
+    <ul>
+        {% for device_id, tokens in results.items() %}
+            <li><strong>{{ device_id[:8] }}</strong> — {% if tokens %}Exposed to {{ tokens|length }} tokens{% else %}No exposure{% endif %}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
